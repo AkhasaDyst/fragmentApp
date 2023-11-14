@@ -4,6 +4,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
+import com.example.tryfragment.DetailCategoryFragment
 import com.example.tryfragment.R
 
 class CategoryFragment : Fragment(), View.OnClickListener {
@@ -20,9 +21,28 @@ class CategoryFragment : Fragment(), View.OnClickListener {
         btnDetailCategory.setOnClickListener(this)
     }
 
+
+
     override fun onClick(v: View?) {
         if (v?.id == R.id.btn_detail_category) {
+            val detailCategoryFragment = DetailCategoryFragment()
+            val bundle = Bundle()
+            bundle.putString(DetailCategoryFragment.EXTRA_NAME, "Lifestyle")
+            val description = "Kategori ini akan berisi produk-produk lifestyle"
+            detailCategoryFragment.arguments = bundle
+            detailCategoryFragment.description = description
 
+            val fragmentManager = parentFragmentManager
+            fragmentManager?.beginTransaction()?.apply {
+                replace(
+                    R.id.frame_container,
+                    detailCategoryFragment,
+                    DetailCategoryFragment::class.java.simpleName
+                )
+                addToBackStack(null)
+                commit()
+
+            }
         }
     }
 }
